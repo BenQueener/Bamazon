@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
     user: 'root'
     password: "root",
     database: 'bamazonDB'
-})
+});
 
 //connect to the database
 connection.connect(function(err) {
@@ -58,9 +58,11 @@ function buyThings(id, quantity){
             connection.query("UPDATE products SET stock_quantity = stock_quantity - " + quantity + "WHERE item_id = " + id);
         }
     });
-}
+    //start over
+    whatDoWeHave();
+};
 
-//check if the store has enough for the order..."Insuffciant quantity"
+//check if the store has enough for the order..."Insufficiant quantity"
 function checkQuantity(id, quantity){
     if (quantity <= response[0].stock_quantity) {
         return true;
@@ -69,7 +71,7 @@ function checkQuantity(id, quantity){
         console.log("We don't have that many " + response[0].product_name + "s.");
         return false
     }
-}
+};
 //if you have enough product for the order...
 //update the database for the remaining quantity
 //show the customer the total cost
@@ -85,4 +87,6 @@ function whatDoWeHave() {
         startShopping();
 
     });
-}
+};
+
+whatDoWeHave();
