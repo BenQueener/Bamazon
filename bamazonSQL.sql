@@ -1,7 +1,9 @@
---create database
+DROP DATABASE IF EXISTS bamazonDB;
+
+-- create database
 CREATE DATABASE bamazonDB;
 
---use database
+-- use database
 USE bamazonDB;
 
 -- create table called products
@@ -11,10 +13,10 @@ CREATE TABLE products (
     department_name VARCHAR(45) NOT NULL,
     price INT default 0,
     stock_quantity INT default 0,
-    PRIMARY KEY (id)
+    PRIMARY KEY (item_id)
 );
 
---Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).
+-- Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).
 INSERT INTO products( product_name, department_name, price, stock_quantity)
 VALUES  ("ipod", "electronics", 600, 10),
         ("laptop", "electronics", 2500, 10),
