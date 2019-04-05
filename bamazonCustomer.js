@@ -1,6 +1,7 @@
 // put all my require packages
 var inquirer = require('inquirer');
-var mysql = require('mysql')
+var mysql = require('mysql');
+var cTable = require('console.table');
 
 //Connect to my server
 var connection = mysql.createConnection({
@@ -16,7 +17,7 @@ connection.connect(function(err) {
 // in case it returns errors
     if (err) throw err;
     //need to show the customer what we have
-    whatDoWeHave();
+    // whatDoWeHave();
 });
 
 //message 1: ask for id of product they want to buy
@@ -57,8 +58,7 @@ function buyThings(id, quantity){
             console.log("The total cost of " + quantity + " " + response[0].product_name + " is " + total);
             //make changes to the database to reflect the purchase of the items
             var newQuantity = response[0].stock_quantity - quantity;
-            console.log(id, quantity, newQuantity);
-
+            //console.log(id, quantity, newQuantity);
             connection.query("UPDATE products SET stock_quantity = " + newQuantity + " WHERE item_id = " + id);
         }
     });
@@ -82,8 +82,9 @@ function whatDoWeHave() {
     var query = "SELECT * FROM products";
     connection.query(query, function(err, response) {
         if (err) throw err;
+        console.log("\n");
         console.log(" ------------------CURRENT INVENTORY----------------");
-        console.log(response);
+        console.table(response);
         //now we ask the customer what they want to buy
         startShopping();
 
